@@ -1,0 +1,16 @@
+{
+  "name": "diy-recipes",
+  "version": "1.0.0",
+  "description": "search any food recipe you want to make at home",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack"
+  },
+  "keywords": [],
+  "author": "Naren Lama",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
+}
