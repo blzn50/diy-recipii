@@ -4,13 +4,24 @@
   "description": "search any food recipe you want to make at home",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack"
+    "dev": "webpack --mode development",
+    "build": "webpack -mode production",
+    "start": "webpack-dev-server"
   },
   "keywords": [],
   "author": "Naren Lama",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
+    "html-webpack-plugin": "^4.2.0",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5"
   }
 }
