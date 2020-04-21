@@ -1,5 +1,5 @@
 import Search from './models/Search';
-import { elements } from './views/base';
+import { elements, renderSpinner, clearSpinner } from './views/base';
 import * as SearchBox from './views/searchBox';
 
 /** Global state
@@ -20,10 +20,13 @@ const handleSearch = async () => {
     // clear previous list and loading spinner
     SearchBox.clearInput();
     SearchBox.clearResults();
+    renderSpinner(elements.results);
     // make api call
     await state.search.getRecipes();
 
     // render results on webapp
+    // console.log('state.search.result: ', state.search.result);
+    clearSpinner();
     SearchBox.renderRecipes(state.search.result);
   }
 };
