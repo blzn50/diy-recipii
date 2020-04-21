@@ -13,17 +13,18 @@ const state = {};
 const handleSearch = async () => {
   // get query from view
   const query = SearchBox.getInput();
-  console.log('query: ', query);
+
   if (query) {
     // add query to global state
     state.search = new Search(query);
     // clear previous list and loading spinner
-
+    SearchBox.clearInput();
+    SearchBox.clearResults();
     // make api call
     await state.search.getRecipes();
 
     // render results on webapp
-    console.log(state.search.result);
+    SearchBox.renderRecipes(state.search.result);
   }
 };
 
