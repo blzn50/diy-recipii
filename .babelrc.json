@@ -9,5 +9,6 @@
         "shippedProposals": true
       }
     ]
-  ]
+  ],
+  "plugins": ["@babel/plugin-transform-arrow-functions"]
 }
