@@ -36,6 +36,17 @@ elements.searchBtn.addEventListener('submit', (e) => {
   handleSearch();
 });
 
+elements.resultsPage.addEventListener('click', (e) => {
+  const btn = e.target.closest('.btn-selector');
+
+  if (btn) {
+    const goToPage = parseInt(btn.dataset.goto, 10);
+    SearchBox.clearResults();
+    SearchBox.renderRecipes(state.search.result, goToPage);
+    console.log('goToPage: ', goToPage);
+  }
+});
+
 // fetch(`https://forkify-api.herokuapp.com/api/get?rId=${query}`, {
 //   headers: {
 //     'Content-Type': 'application/json',
