@@ -1,10 +1,11 @@
+import { proxy } from '../config';
+
 export default class Search {
   constructor(query) {
     this.query = query;
   }
 
   async getRecipes() {
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
     try {
       const data = await fetch(
         `${proxy}https://forkify-api.herokuapp.com/api/search?q=${this.query}`

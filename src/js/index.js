@@ -1,4 +1,5 @@
 import Search from './models/Search';
+import Recipe from './models/Recipe';
 import { elements, renderSpinner, clearSpinner } from './views/base';
 import * as SearchBox from './views/searchBox';
 
@@ -10,6 +11,9 @@ import * as SearchBox from './views/searchBox';
  */
 const state = {};
 
+/**
+ * SEARCH CONTROLLER
+ */
 const handleSearch = async () => {
   // get query from view
   const query = SearchBox.getInput();
@@ -47,8 +51,7 @@ elements.resultsPage.addEventListener('click', (e) => {
   }
 });
 
-// fetch(`https://forkify-api.herokuapp.com/api/get?rId=${query}`, {
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-// }).then((res) => res.json());
+/**
+ * RECIPE CONTROLLER
+ */
+const r = new Recipe();
