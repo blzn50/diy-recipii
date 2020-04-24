@@ -13,7 +13,7 @@ export default class Search {
       const jsonData = await data.json();
       this.result = jsonData.recipes;
     } catch (error) {
-      console.log('Error with fetching the data. Please try again');
+      alert('Error with fetching the data. Please try again');
 
       // error.text().then((er) => console.log(er));
     }
