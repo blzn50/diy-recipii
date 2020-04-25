@@ -28,9 +28,9 @@ const limitRecipeTitle = (title, limit = 17) => {
 const renderRecipe = (recipe) => {
   const markup = `
                 <li>
-                  <a class="results__link results__link--active" href="#${recipe.recipe_id}">
+                  <a class="results__link" href="#${recipe.recipe_id}">
                       <figure class="results__fig">
-                          <img src="${recipe.img_url}" alt="${recipe.title}">
+                          <img src="${recipe.image_url}" alt="${recipe.title}">
                       </figure>
                       <div class="results__data">
                           <h4 class="results__name">${limitRecipeTitle(recipe.title)}</h4>
@@ -78,4 +78,12 @@ export const renderRecipes = (recipes, page = 1, resPerPage = 10) => {
 
   // results pagination
   renderButtons(page, recipes.length, resPerPage);
+};
+
+export const highlightSelected = (id) => {
+  const searchResults = Array.from(document.querySelectorAll('.results__link'));
+  searchResults.forEach((result) => {
+    result.classList.remove('results__link--active');
+  });
+  document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
 };

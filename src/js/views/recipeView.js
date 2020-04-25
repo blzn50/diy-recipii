@@ -1,11 +1,19 @@
+import Fraction from 'fraction.js';
 import { elements } from './base';
 
+const formatCount = (value) => {
+  if (value) {
+    const x = new Fraction(value);
+    return x.toFraction(true);
+  }
+  return '?';
+};
 const renderIngredients = (ing) => `
                   <li class="recipe__item">
                       <svg class="recipe__icon">
                           <use href="img/icons.svg#icon-check"></use>
                       </svg>
-                      <div class="recipe__count">${ing.count}</div>
+                      <div class="recipe__count">${formatCount(ing.count)}</div>
                       <div class="recipe__ingredient">
                           <span class="recipe__unit">${ing.unit}</span>
                           ${ing.ingredient}
