@@ -2,6 +2,7 @@ import Search from './models/Search';
 import Recipe from './models/Recipe';
 import { elements, renderSpinner, clearSpinner } from './views/base';
 import * as SearchBox from './views/searchBox';
+import * as RecipeView from './views/recipeView';
 
 /** Global state
  * Search object
@@ -52,7 +53,6 @@ elements.resultsPage.addEventListener('click', (e) => {
     const goToPage = parseInt(btn.dataset.goto, 10);
     SearchBox.clearResults();
     SearchBox.renderRecipes(state.search.result, goToPage);
-    console.log('goToPage: ', goToPage);
   }
 });
 
@@ -64,9 +64,12 @@ const controlRecipe = async () => {
   const id = window.location.hash.replace('#', '');
   if (id) {
     // prepare UI for changes
+    RecipeView.clearRecipe();
+    renderSpinner(elements.recipe);
 
     // create new recipe object
     state.recipe = new Recipe(id);
+
     try {
       // get recipe data and parse ingredients
       await state.recipe.getRecipe();
@@ -76,7 +79,8 @@ const controlRecipe = async () => {
       state.recipe.calcServings();
 
       // render recipe
-      console.log(state.recipe);
+      clearSpinner();
+      RecipeView.renderRecipe(state.recipe);
     } catch (error) {
       alert('Error processing the recipe!');
     }

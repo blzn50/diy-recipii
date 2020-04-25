@@ -48,6 +48,7 @@ export default class Recipe {
       'pounds',
     ];
     const unitsShort = ['tbsp', 'tbsp', 'tsp', 'tsp', 'oz', 'oz', 'cup', 'pound'];
+    const units = [...unitsShort, 'kg', 'g'];
 
     const newIngredients = this.ingredients.map((ing) => {
       // uniform units
@@ -60,7 +61,7 @@ export default class Recipe {
 
       // parse ingredients into count, unit and ingredients
       const ingArr = ingredient.split(' ');
-      const unitIndex = ingArr.findIndex((ing2) => unitsShort.includes(ing2));
+      const unitIndex = ingArr.findIndex((ing2) => units.includes(ing2));
 
       let ingObj;
 
