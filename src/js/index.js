@@ -1,5 +1,6 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
+import ShoppingList from './models/ShoppingList';
 import { elements, renderSpinner, clearSpinner } from './views/base';
 import * as SearchBox from './views/searchBox';
 import * as RecipeView from './views/recipeView';
@@ -106,5 +107,4 @@ elements.recipe.addEventListener('click', (e) => {
     state.recipe.updateServings('inc');
     RecipeView.updateServingIngredients(state.recipe);
   }
-  // console.log(state.recipe);
 });
