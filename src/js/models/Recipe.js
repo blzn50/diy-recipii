@@ -20,7 +20,6 @@ export default class Recipe {
       this.url = jsonData.recipe.source_url;
       this.ingredients = jsonData.recipe.ingredients;
     } catch (error) {
-      console.log(error);
       alert('Something went wrong :(');
     }
   }

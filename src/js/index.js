@@ -15,7 +15,6 @@ import * as favoriteView from './views/favoriteView';
  * favorites
  */
 const state = {};
-window.state = state;
 
 /**
  * SEARCH CONTROLLER
@@ -36,7 +35,6 @@ const handleSearch = async () => {
       await state.search.getRecipes();
 
       // Render results on webapp
-      // console.log('state.search.result: ', state.search.result);
       clearSpinner();
       searchBox.renderRecipes(state.search.result);
     } catch (error) {
@@ -132,7 +130,6 @@ elements.shopping.addEventListener('click', (e) => {
 /**
  * FAVORITE CONTROLLER
  */
-
 const controlFav = () => {
   if (!state.favorites) state.favorites = new Favorites();
 
