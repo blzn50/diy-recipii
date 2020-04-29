@@ -3,12 +3,12 @@ export default class Favorites {
     this.favorites = [];
   }
 
-  addFavorite(id, title, author, img) {
+  addFavorite(id, title, author, image) {
     const fav = {
       id,
       title,
       author,
-      img,
+      image,
     };
     this.favorites.push(fav);
     return fav;

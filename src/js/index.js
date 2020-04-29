@@ -1,6 +1,7 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import ShoppingList from './models/ShoppingList';
+import Favorites from './models/Favorites';
 import { elements, renderSpinner, clearSpinner } from './views/base';
 import * as searchBox from './views/searchBox';
 import * as recipeView from './views/recipeView';
@@ -14,25 +15,26 @@ import * as shopListView from './views/shopListView';
  */
 const state = {};
 window.state = state;
+
 /**
  * SEARCH CONTROLLER
  */
 const handleSearch = async () => {
-  // get query from view
+  // Get query from view
   const query = searchBox.getInput();
 
   if (query) {
-    // add query to global state
+    // Add query to global state
     state.search = new Search(query);
-    // clear previous list and loading spinner
+    // Clear previous list and loading spinner
     searchBox.clearInput();
     searchBox.clearResults();
     renderSpinner(elements.results);
     try {
-      // make api call
+      // Make api call
       await state.search.getRecipes();
 
-      // render results on webapp
+      // Render results on webapp
       // console.log('state.search.result: ', state.search.result);
       clearSpinner();
       searchBox.renderRecipes(state.search.result);
@@ -64,23 +66,23 @@ elements.resultsPage.addEventListener('click', (e) => {
 const controlRecipe = async () => {
   const id = window.location.hash.replace('#', '');
   if (id) {
-    // prepare UI for changes
+    // Prepare UI for changes
     recipeView.clearRecipe();
     renderSpinner(elements.recipe);
 
     if (state.search) searchBox.highlightSelected(id);
-    // create new recipe object
+    // Create new recipe object
     state.recipe = new Recipe(id);
 
     try {
-      // get recipe data and parse ingredients
+      // Get recipe data and parse ingredients
       await state.recipe.getRecipe();
       state.recipe.parseIngredients();
       // calcTime & calcServings
       state.recipe.calcTime();
       state.recipe.calcServings();
 
-      // render recipe
+      // Render recipe
       clearSpinner();
       recipeView.renderRecipe(state.recipe);
     } catch (error) {
@@ -98,17 +100,17 @@ const controlRecipe = async () => {
  * SHOPPING LIST CONTROLLER
  */
 const controlShoppingList = () => {
-  // create new shopping list if not present
+  // Create new shopping list if not present
   if (!state.list) state.list = new ShoppingList();
 
-  // add item to the shopping list and UI
+  // Add item to the shopping list and UI
   state.recipe.ingredients.forEach((ing) => {
     const item = state.list.addItem(ing.count, ing.unit, ing.ingredient);
     shopListView.renderItem(item);
   });
 };
 
-// handle update and delete item from list
+// Handle update and delete item from list
 elements.shopping.addEventListener('click', (e) => {
   const id = e.target.closest('.shopping__item').dataset.itemid;
 
@@ -126,6 +128,39 @@ elements.shopping.addEventListener('click', (e) => {
   }
 });
 
+/**
+ * FAVORITE CONTROLLER
+ */
+const controlFav = () => {
+  if (!state.favorites) state.favorites = new Favorites();
+
+  const currentID = state.recipe.id;
+
+  // User has NOT liked the current recipe
+  if (!state.favorites.isFavorite(currentID)) {
+    // Add item to fav list state
+    const fav = state.favorites.addFavorite(
+      currentID,
+      state.recipe.title,
+      state.recipe.author,
+      state.recipe.image
+    );
+
+    // Toggle fav icon
+
+    // Add item to UI
+
+    // User HAS liked the current recipe
+  } else {
+    // Delete item from the fav list state
+    state.favorites.deleteFavorite(currentID);
+
+    // Toggle fav icon
+
+    // Remove item from UI
+  }
+};
+
 // Handling recipe button clicks
 elements.recipe.addEventListener('click', (e) => {
   if (e.target.matches('.btn-decrease, .btn-decrease *')) {
@@ -139,6 +174,10 @@ elements.recipe.addEventListener('click', (e) => {
     state.recipe.updateServings('inc');
     recipeView.updateServingIngredients(state.recipe);
   } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+    // Add ingredients to shopping list
     controlShoppingList();
+  } else if (e.target.matches('.recipe__love, .recipe__love *')) {
+    // Add/remove favorite item
+    controlFav();
   }
 });
