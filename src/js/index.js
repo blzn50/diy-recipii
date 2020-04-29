@@ -6,6 +6,7 @@ import { elements, renderSpinner, clearSpinner } from './views/base';
 import * as searchBox from './views/searchBox';
 import * as recipeView from './views/recipeView';
 import * as shopListView from './views/shopListView';
+import * as favoriteView from './views/favoriteView';
 
 /** Global state
  * Search object
@@ -84,7 +85,7 @@ const controlRecipe = async () => {
 
       // Render recipe
       clearSpinner();
-      recipeView.renderRecipe(state.recipe);
+      recipeView.renderRecipe(state.recipe, state.favorites.isFavorite(id));
     } catch (error) {
       alert('Error processing the recipe!');
     }
@@ -131,6 +132,11 @@ elements.shopping.addEventListener('click', (e) => {
 /**
  * FAVORITE CONTROLLER
  */
+
+// TESTING
+state.favorites = new Favorites();
+favoriteView.toggleFavMenu(state.favorites.getFavLength());
+
 const controlFav = () => {
   if (!state.favorites) state.favorites = new Favorites();
 
@@ -147,18 +153,22 @@ const controlFav = () => {
     );
 
     // Toggle fav icon
-
+    favoriteView.toggleFavBtn(true);
     // Add item to UI
-
+    favoriteView.renderFav(fav);
     // User HAS liked the current recipe
   } else {
     // Delete item from the fav list state
     state.favorites.deleteFavorite(currentID);
 
     // Toggle fav icon
+    favoriteView.toggleFavBtn(false);
 
     // Remove item from UI
+    favoriteView.deleteFav(currentID);
   }
+
+  favoriteView.toggleFavMenu(state.favorites.getFavLength());
 };
 
 // Handling recipe button clicks

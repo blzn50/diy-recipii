@@ -21,7 +21,7 @@ const renderIngredients = (ing) => `
                   </li>
 `;
 
-export const renderRecipe = (recipe) => {
+export const renderRecipe = (recipe, isFavorite) => {
   const markup = `
           <figure class="recipe__fig">
               <img src="${recipe.image}" alt="${recipe.title}" class="recipe__img">
@@ -62,7 +62,7 @@ export const renderRecipe = (recipe) => {
               </div>
               <button class="recipe__love">
                   <svg class="header__favorite">
-                      <use href="img/icons.svg#icon-heart-outlined"></use>
+                      <use href="img/icons.svg#icon-heart${isFavorite ? '' : '-outlined'}"></use>
                   </svg>
               </button>
           </div>
