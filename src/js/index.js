@@ -133,10 +133,6 @@ elements.shopping.addEventListener('click', (e) => {
  * FAVORITE CONTROLLER
  */
 
-// TESTING
-state.favorites = new Favorites();
-favoriteView.toggleFavMenu(state.favorites.getFavLength());
-
 const controlFav = () => {
   if (!state.favorites) state.favorites = new Favorites();
 
@@ -170,6 +166,21 @@ const controlFav = () => {
 
   favoriteView.toggleFavMenu(state.favorites.getFavLength());
 };
+
+window.addEventListener('load', () => {
+  state.favorites = new Favorites();
+
+  // Restore favorites
+  state.favorites.getStorageData();
+
+  // Toggle favorite menu button
+  favoriteView.toggleFavMenu(state.favorites.getFavLength());
+
+  // Render the existing favorites
+  state.favorites.favorites.forEach((fav) => {
+    favoriteView.renderFav(fav);
+  });
+});
 
 // Handling recipe button clicks
 elements.recipe.addEventListener('click', (e) => {
