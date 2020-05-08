@@ -14,15 +14,32 @@ export default class ShoppingList {
     };
 
     this.items.push(item);
+    this.persistData();
     return item;
   }
 
   deleteItem(id) {
     const index = this.items.findIndex((el) => el.id === id);
     this.items.splice(index, 1);
+    this.persistData();
+  }
+
+  deleteAllItems() {
+    this.items.length = 0;
+    this.persistData();
   }
 
   updateCount(id, newCount) {
     this.items.find((el) => el.id === id).count = newCount;
+    this.persistData();
+  }
+
+  persistData() {
+    localStorage.setItem('shoppingList', JSON.stringify(this.items));
+  }
+
+  getStorageData() {
+    const storedData = JSON.parse(localStorage.getItem('shoppingList'));
+    if (storedData) this.items = storedData;
   }
 }

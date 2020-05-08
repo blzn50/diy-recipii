@@ -43,10 +43,11 @@ export default class Recipe {
       'teaspoon',
       'ounces',
       'ounce',
+      'cups',
       'cup',
       'pounds',
     ];
-    const unitsShort = ['tbsp', 'tbsp', 'tsp', 'tsp', 'oz', 'oz', 'cup', 'pound'];
+    const unitsShort = ['tbsp', 'tbsp', 'tsp', 'tsp', 'oz', 'oz', 'cup', 'cup', 'pound'];
     const units = [...unitsShort, 'kg', 'g'];
 
     const newIngredients = this.ingredients.map((ing) => {

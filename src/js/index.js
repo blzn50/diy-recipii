@@ -116,6 +116,8 @@ const controlShoppingList = () => {
     const item = state.list.addItem(ing.count, ing.unit, ing.ingredient);
     shopListView.renderItem(item);
   });
+
+  // Render the delete all btn
   shoppingListDelBtn();
 };
 
@@ -130,6 +132,7 @@ elements.shopping.addEventListener('click', (e) => {
     // delete from UI
     shopListView.deleteItem(id);
 
+    // Remove the delete all btn
     shoppingListDelBtn();
 
     // handle update
@@ -144,7 +147,7 @@ document.querySelector('.shopping').addEventListener('click', (e) => {
   const delBtn = e.target.closest('.delete__all');
   if (delBtn) {
     console.log('del btn clicked');
-    state.list.items.length = 0;
+    state.list.deleteAllItems();
     elements.shopping.innerHTML = '';
     shopListView.removeDeleteAllBtn();
   }
