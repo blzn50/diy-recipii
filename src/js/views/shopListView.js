@@ -23,3 +23,20 @@ export const deleteItem = (id) => {
   const item = document.querySelector(`[data-itemid="${id}"]`);
   if (item) item.parentElement.removeChild(item);
 };
+
+export const renderDeleteAllBtn = () => {
+  const markup = `
+    <button class="delete__all btn-small">
+      <svg>
+        <use href="img/icons.svg#icon-circle-with-cross"></use>
+      </svg>
+      <span>Delete All</span>
+    </button>
+  `;
+  elements.shopping.insertAdjacentHTML('afterend', markup);
+};
+
+export const removeDeleteAllBtn = () => {
+  const item = document.querySelector('.delete__all');
+  if (item) item.parentElement.removeChild(item);
+};

@@ -95,7 +95,6 @@ export const renderRecipe = (recipe, isFavorite) => {
                   <svg class="search__icon">
                       <use href="img/icons.svg#icon-triangle-right"></use>
                   </svg>
-
               </a>
           </div>
 `;

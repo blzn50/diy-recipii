@@ -15,7 +15,7 @@ import * as favoriteView from './views/favoriteView';
  * favorites
  */
 const state = {};
-
+window.state = state;
 /**
  * SEARCH CONTROLLER
  */
@@ -95,6 +95,15 @@ const controlRecipe = async () => {
 
 ['hashchange', 'load'].forEach((e) => window.addEventListener(e, controlRecipe));
 
+// Render/Delete delete all btn according to list state
+const shoppingListDelBtn = () => {
+  if (state.list.items && !document.querySelector('.delete__all')) {
+    shopListView.renderDeleteAllBtn();
+  } else if (state.list.items.length === 0) {
+    shopListView.removeDeleteAllBtn();
+  }
+};
+
 /**
  * SHOPPING LIST CONTROLLER
  */
@@ -107,6 +116,7 @@ const controlShoppingList = () => {
     const item = state.list.addItem(ing.count, ing.unit, ing.ingredient);
     shopListView.renderItem(item);
   });
+  shoppingListDelBtn();
 };
 
 // Handle update and delete item from list
@@ -120,10 +130,23 @@ elements.shopping.addEventListener('click', (e) => {
     // delete from UI
     shopListView.deleteItem(id);
 
+    shoppingListDelBtn();
+
     // handle update
   } else if (e.target.matches('.shopping__count--value')) {
     const val = parseFloat(e.target.value);
     if (val >= 0) state.list.updateCount(id, val);
+  }
+});
+
+// Handle delete all items from shopping list
+document.querySelector('.shopping').addEventListener('click', (e) => {
+  const delBtn = e.target.closest('.delete__all');
+  if (delBtn) {
+    console.log('del btn clicked');
+    state.list.items.length = 0;
+    elements.shopping.innerHTML = '';
+    shopListView.removeDeleteAllBtn();
   }
 });
 
